@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>恒美化工股份有限公司 | Henme Chemical</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600&family=Noto+Sans+TC:wght@300;400;500&family=EB+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a16; --ink-mid: #4a4a42; --ink-light: #8a8a7e;
+    --paper: #f7f4ee; --paper-off: #edeae2;
+    --accent: #2a4a35; --accent-light: #4a7a5a;
+    --gold: #c8a84b; --gold-light: #e8c86a;
+    --divider: rgba(26,26,22,0.12);
+    --border-thin: 0.5px solid rgba(26,26,22,0.18);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Noto Sans TC', sans-serif; font-weight: 300; line-height: 1.8; overflow-x: hidden; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 20px 60px; background: rgba(247,244,238,0.95); backdrop-filter: blur(12px); border-bottom: var(--border-thin); }
+  .nav-logo { font-family: 'Noto Serif TC', serif; font-size: 18px; font-weight: 600; letter-spacing: 0.08em; color: var(--accent); text-decoration: none; }
+  .nav-logo span { display: block; font-family: 'EB Garamond', serif; font-size: 11px; letter-spacing: 0.2em; color: var(--ink-light); text-transform: uppercase; margin-top: 2px; }
+  .nav-links { display: flex; gap: 40px; list-style: none; align-items: center; }
+  .nav-links a { font-size: 13px; letter-spacing: 0.12em; color: var(--ink-mid); text-decoration: none; transition: color 0.2s; position: relative; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: var(--accent); transition: width 0.3s; }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-links a:hover::after { width: 100%; }
+
+  /* LANG TOGGLE */
+  .lang-toggle { display: flex; border: var(--border-thin); overflow: hidden; }
+  .lang-btn { font-size: 12px; letter-spacing: 0.1em; color: var(--ink-light); cursor: pointer; padding: 5px 13px; background: transparent; border: none; transition: all 0.2s; font-family: 'EB Garamond', serif; }
+  .lang-btn:first-child { border-right: var(--border-thin); }
+  .lang-btn.active { background: var(--accent); color: var(--paper); }
+  .lang-btn:not(.active):hover { color: var(--accent); }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; padding-top: 80px; overflow: hidden; }
+  .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 80px 60px; }
+  .hero-label { font-family: 'EB Garamond', serif; font-size: 12px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
+  .hero-label::before { content: ''; display: block; width: 40px; height: 1px; background: var(--gold); }
+  .hero-title { font-family: 'Noto Serif TC', serif; font-size: clamp(36px, 4vw, 56px); font-weight: 300; line-height: 1.3; letter-spacing: 0.04em; margin-bottom: 12px; }
+  .hero-title em { font-style: italic; color: var(--accent); font-family: 'EB Garamond', serif; font-size: 1.1em; }
+  .hero-subtitle { font-family: 'EB Garamond', serif; font-size: 22px; font-style: italic; color: var(--ink-light); margin-bottom: 32px; letter-spacing: 0.03em; }
+  .hero-desc { font-size: 14px; color: var(--ink-mid); max-width: 420px; line-height: 2; margin-bottom: 48px; border-left: 2px solid var(--gold); padding-left: 20px; }
+  .hero-cta { display: flex; gap: 20px; align-items: center; }
+  .btn-primary { background: var(--accent); color: #f7f4ee; padding: 14px 36px; font-family: 'Noto Sans TC', sans-serif; font-size: 13px; letter-spacing: 0.1em; text-decoration: none; transition: background 0.3s; cursor: pointer; border: none; display: inline-block; }
+  .btn-primary:hover { background: var(--accent-light); }
+  .btn-outline { color: var(--ink-mid); font-size: 13px; letter-spacing: 0.1em; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color 0.2s; }
+  .btn-outline:hover { color: var(--accent); }
+  .btn-outline::after { content: '→'; transition: transform 0.2s; }
+  .btn-outline:hover::after { transform: translateX(4px); }
+  .hero-right { background: var(--accent); position: relative; overflow: hidden; display: flex; flex-direction: column; justify-content: flex-end; padding: 60px; }
+  .hero-bg-pattern { position: absolute; inset: 0; opacity: 0.06; background-image: repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.5) 40px, rgba(255,255,255,0.5) 41px), repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(255,255,255,0.5) 40px, rgba(255,255,255,0.5) 41px); }
+  .hero-molecule { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 0.12; }
+  .hero-stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.15); position: relative; z-index: 1; }
+  .hero-stat { background: rgba(42,74,53,0.6); padding: 28px 24px; }
+  .hero-stat-num { font-family: 'EB Garamond', serif; font-size: 40px; color: var(--gold-light); line-height: 1; margin-bottom: 6px; }
+  .hero-stat-label { font-size: 12px; color: rgba(247,244,238,0.6); letter-spacing: 0.1em; }
+  .hero-year { position: absolute; top: 60px; right: 60px; z-index: 1; }
+  .hero-year-num { font-family: 'EB Garamond', serif; font-size: 100px; color: rgba(255,255,255,0.08); line-height: 1; letter-spacing: -0.04em; }
+
+  /* SECTION COMMON */
+  section { padding: 100px 60px; }
+  .section-label { font-family: 'EB Garamond', serif; font-size: 11px; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; }
+  .section-title { font-family: 'Noto Serif TC', serif; font-size: clamp(28px, 3vw, 42px); font-weight: 300; letter-spacing: 0.04em; line-height: 1.3; margin-bottom: 20px; }
+  .section-divider { width: 60px; height: 1px; background: var(--gold); margin-bottom: 40px; }
+
+  /* ABOUT */
+  .about { background: var(--paper-off); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
+  .about-timeline { margin-top: 40px; }
+  .timeline-item { display: grid; grid-template-columns: 80px 1fr; gap: 24px; margin-bottom: 32px; position: relative; }
+  .timeline-item::before { content: ''; position: absolute; left: 39px; top: 28px; bottom: -32px; width: 1px; background: var(--divider); }
+  .timeline-item:last-child::before { display: none; }
+  .timeline-year { font-family: 'EB Garamond', serif; font-size: 14px; color: var(--gold); text-align: right; padding-top: 2px; }
+  .timeline-dot { position: absolute; left: 35px; top: 6px; width: 9px; height: 9px; border: 1px solid var(--gold); background: var(--paper-off); transform: rotate(45deg); }
+  .timeline-content h4 { font-family: 'Noto Serif TC', serif; font-size: 14px; font-weight: 400; color: var(--ink); margin-bottom: 4px; }
+  .timeline-content p { font-size: 13px; color: var(--ink-light); line-height: 1.7; }
+  .cert-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+  .cert-badge { font-family: 'EB Garamond', serif; font-size: 12px; letter-spacing: 0.1em; padding: 6px 16px; border: var(--border-thin); color: var(--ink-mid); }
+
+  /* PRODUCTS */
+  .products { background: var(--paper); }
+  .products-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 60px; }
+  .product-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--paper-off); }
+  .product-card { background: var(--paper); position: relative; overflow: hidden; cursor: pointer; }
+  .product-img-wrap { position: relative; overflow: hidden; height: 220px; background: var(--paper-off); }
+  .product-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.6s ease, filter 0.6s ease; filter: grayscale(25%) brightness(0.95); }
+  .product-card:hover .product-img-wrap img { transform: scale(1.06); filter: grayscale(0%) brightness(1); }
+  .product-img-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, rgba(42,74,53,0.85) 100%); opacity: 0; transition: opacity 0.4s; }
+  .product-card:hover .product-img-overlay { opacity: 1; }
+  .product-img-num { position: absolute; top: 14px; left: 18px; font-family: 'EB Garamond', serif; font-size: 11px; letter-spacing: 0.2em; color: rgba(255,255,255,0.9); background: rgba(42,74,53,0.7); padding: 3px 10px; }
+  .product-body { padding: 28px 28px 24px; border-top: 2px solid var(--paper-off); transition: border-color 0.3s; }
+  .product-card:hover .product-body { border-color: var(--gold); }
+  .product-name { font-family: 'Noto Serif TC', serif; font-size: 17px; font-weight: 400; color: var(--ink); margin-bottom: 4px; letter-spacing: 0.04em; transition: color 0.3s; }
+  .product-card:hover .product-name { color: var(--accent); }
+  .product-name-en { font-family: 'EB Garamond', serif; font-size: 13px; font-style: italic; color: var(--ink-light); margin-bottom: 16px; }
+  .product-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.9; }
+  .product-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 20px; font-size: 12px; letter-spacing: 0.12em; color: var(--accent); text-decoration: none; border-bottom: 1px solid transparent; padding-bottom: 2px; transition: border-color 0.3s; }
+  .product-link:hover { border-color: var(--accent); }
+
+  /* PARTNER */
+  .partner { background: var(--ink); color: var(--paper); display: grid; grid-template-columns: 1fr 2fr; gap: 80px; align-items: center; }
+  .partner .section-title { color: var(--paper); }
+  .partner-desc { font-size: 14px; color: rgba(247,244,238,0.6); line-height: 2; margin-bottom: 32px; }
+  .partner-features { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; position: relative; }
+  .partner-since { font-family: 'EB Garamond', serif; font-size: 60px; color: rgba(247,244,238,0.06); letter-spacing: -0.04em; position: absolute; top: -20px; right: 0; }
+  .partner-feature { border-top: 1px solid rgba(247,244,238,0.12); padding-top: 24px; }
+  .partner-feature h4 { font-family: 'Noto Serif TC', serif; font-size: 15px; font-weight: 400; color: var(--gold-light); margin-bottom: 10px; letter-spacing: 0.04em; }
+  .partner-feature p { font-size: 13px; color: rgba(247,244,238,0.5); line-height: 1.8; }
+
+  /* CONTACT */
+  .contact { background: var(--paper-off); display: grid; grid-template-columns: 1fr 1fr; gap: 80px; }
+  .contact-info-list { list-style: none; margin-top: 40px; }
+  .contact-info-list li { display: flex; gap: 20px; padding: 20px 0; border-bottom: var(--border-thin); font-size: 14px; }
+  .contact-info-list .label { color: var(--ink-light); font-size: 12px; letter-spacing: 0.1em; min-width: 60px; padding-top: 2px; }
+  .contact-info-list .value { color: var(--ink); line-height: 1.7; }
+  .contact-form-side { padding-top: 40px; }
+  .form-group { margin-bottom: 24px; }
+  .form-label { display: block; font-size: 11px; letter-spacing: 0.15em; color: var(--ink-light); margin-bottom: 8px; text-transform: uppercase; }
+  .form-input, .form-textarea { width: 100%; background: var(--paper); border: var(--border-thin); padding: 12px 16px; font-family: 'Noto Sans TC', sans-serif; font-size: 14px; color: var(--ink); outline: none; transition: border-color 0.2s; -webkit-appearance: none; border-radius: 0; }
+  .form-input:focus, .form-textarea:focus { border-color: var(--accent); }
+  .form-textarea { height: 120px; resize: vertical; }
+
+  /* FOOTER */
+  footer { background: var(--ink); color: var(--paper); padding: 60px 60px 40px; }
+  .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 60px; padding-bottom: 48px; border-bottom: 1px solid rgba(247,244,238,0.08); margin-bottom: 32px; }
+  .footer-brand { font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 600; letter-spacing: 0.06em; color: var(--paper); margin-bottom: 6px; }
+  .footer-brand-en { font-family: 'EB Garamond', serif; font-size: 11px; letter-spacing: 0.25em; color: rgba(247,244,238,0.3); text-transform: uppercase; margin-bottom: 20px; }
+  .footer-tagline { font-size: 13px; color: rgba(247,244,238,0.4); line-height: 1.9; }
+  .footer-col h5 { font-size: 11px; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; margin-bottom: 20px; }
+  .footer-col ul { list-style: none; }
+  .footer-col ul li { margin-bottom: 12px; }
+  .footer-col ul a { font-size: 13px; color: rgba(247,244,238,0.4); text-decoration: none; transition: color 0.2s; }
+  .footer-col ul a:hover { color: rgba(247,244,238,0.8); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: rgba(247,244,238,0.25); letter-spacing: 0.08em; }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    section { padding: 60px 24px; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 60px 24px; }
+    .hero-right { min-height: 300px; padding: 40px 24px; }
+    .about, .partner, .contact { grid-template-columns: 1fr; gap: 40px; }
+    .product-grid { grid-template-columns: 1fr 1fr; }
+    .products-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+  }
+  @media (max-width: 580px) { .product-grid { grid-template-columns: 1fr; } }
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* LANG TRANSITION */
+  [data-zh], [data-en] { transition: opacity 0.25s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">
+    <span data-zh>恒美化工</span><span data-en style="display:none">Henme Chemical</span>
+    <span>Henme Chemical Co., Ltd.</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about"><span data-zh>公司介紹</span><span data-en style="display:none">About Us</span></a></li>
+    <li><a href="#products"><span data-zh>商品介紹</span><span data-en style="display:none">Products</span></a></li>
+    <li><a href="#partner"><span data-zh>技術合作</span><span data-en style="display:none">Partnership</span></a></li>
+    <li><a href="#contact"><span data-zh>聯絡我們</span><span data-en style="display:none">Contact</span></a></li>
+  </ul>
+  <div class="lang-toggle">
+    <button class="lang-btn active" onclick="setLang('zh')">繁</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-label">Est. 1972 · <span data-zh>彰濱工業區</span><span data-en style="display:none">Changbin Industrial Park</span></div>
+    <h1 class="hero-title">
+      <span data-zh>精煉化工<br><em>半世紀的</em>積累</span>
+      <span data-en style="display:none">Refined Chemistry<br><em>Half a Century</em> of Expertise</span>
+    </h1>
+    <p class="hero-subtitle">
+      <span data-zh>Refined Chemistry, Half a Century</span>
+      <span data-en style="display:none">Specialty Chemicals for Industry</span>
+    </p>
+    <p class="hero-desc">
+      <span data-zh>恒美化工創立逾50年，專注於合成纖維、土木建築、農業、電子材料等領域的專業化學品，並與日本竹本油脂株式會社深度技術合作，持續提供高性能解決方案。</span>
+      <span data-en style="display:none">Founded over 50 years ago, Henme Chemical specializes in high-performance chemicals for synthetic fiber, construction, agriculture, and electronic materials industries. In close technical partnership with Takemoto Oil & Fat Co., Ltd. of Japan, we deliver cutting-edge solutions to the market.</span>
+    </p>
+    <div class="hero-cta">
+      <a href="#products" class="btn-primary"><span data-zh>探索產品</span><span data-en style="display:none">Explore Products</span></a>
+      <a href="#about" class="btn-outline"><span data-zh>了解更多</span><span data-en style="display:none">Learn More</span></a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bg-pattern"></div>
+    <div class="hero-year"><div class="hero-year-num">50+</div></div>
+    <svg class="hero-molecule" width="320" height="320" viewBox="0 0 320 320" fill="none">
+      <circle cx="160" cy="160" r="18" stroke="white" stroke-width="1"/>
+      <circle cx="80" cy="100" r="14" stroke="white" stroke-width="1"/>
+      <circle cx="240" cy="100" r="14" stroke="white" stroke-width="1"/>
+      <circle cx="80" cy="220" r="14" stroke="white" stroke-width="1"/>
+      <circle cx="240" cy="220" r="14" stroke="white" stroke-width="1"/>
+      <circle cx="160" cy="60" r="10" stroke="white" stroke-width="1"/>
+      <circle cx="160" cy="260" r="10" stroke="white" stroke-width="1"/>
+      <line x1="160" y1="160" x2="80" y2="100" stroke="white" stroke-width="0.7"/>
+      <line x1="160" y1="160" x2="240" y2="100" stroke="white" stroke-width="0.7"/>
+      <line x1="160" y1="160" x2="80" y2="220" stroke="white" stroke-width="0.7"/>
+      <line x1="160" y1="160" x2="240" y2="220" stroke="white" stroke-width="0.7"/>
+      <line x1="80" y1="100" x2="160" y2="60" stroke="white" stroke-width="0.7"/>
+      <line x1="240" y1="100" x2="160" y2="60" stroke="white" stroke-width="0.7"/>
+      <line x1="80" y1="220" x2="160" y2="260" stroke="white" stroke-width="0.7"/>
+      <line x1="240" y1="220" x2="160" y2="260" stroke="white" stroke-width="0.7"/>
+      <line x1="80" y1="100" x2="80" y2="220" stroke="white" stroke-width="0.5" stroke-dasharray="4,4"/>
+      <line x1="240" y1="100" x2="240" y2="220" stroke="white" stroke-width="0.5" stroke-dasharray="4,4"/>
+    </svg>
+    <div class="hero-stat-grid">
+      <div class="hero-stat"><div class="hero-stat-num">50+</div><div class="hero-stat-label"><span data-zh>年創業歷史</span><span data-en style="display:none">Years of History</span></div></div>
+      <div class="hero-stat"><div class="hero-stat-num">6</div><div class="hero-stat-label"><span data-zh>大產品領域</span><span data-en style="display:none">Product Sectors</span></div></div>
+      <div class="hero-stat"><div class="hero-stat-num">ISO</div><div class="hero-stat-label">9001 / 14001</div></div>
+      <div class="hero-stat"><div class="hero-stat-num">Takemoto</div><div class="hero-stat-label"><span data-zh>油脂技術合作夥伴</span><span data-en style="display:none">Technology Partner</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about reveal" id="about">
+  <div>
+    <div class="section-label">Company Profile</div>
+    <h2 class="section-title"><span data-zh>關於恒美</span><span data-en style="display:none">About Henme</span></h2>
+    <div class="section-divider"></div>
+    <p style="font-size:14px;color:var(--ink-mid);line-height:2;margin-bottom:32px;">
+      <span data-zh>恒美化工股份有限公司創立於民國60年代初，適逢台灣紡織業與建築業蓬勃發展之際。公司積極引進日本尖端技術，與竹本油脂株式會社建立超過半世紀的深厚合作關係，共同開拓台灣高性能化學品市場。</span>
+      <span data-en style="display:none">Henme Chemical Co., Ltd. was established in the early 1970s, during a period of rapid growth in Taiwan's textile and construction industries. The company proactively introduced advanced Japanese technology and built a partnership with Takemoto Oil & Fat Co., Ltd. spanning over half a century, jointly developing the high-performance chemicals market in Taiwan.</span>
+    </p>
+    <p style="font-size:14px;color:var(--ink-mid);line-height:2;margin-bottom:32px;">
+      <span data-zh>目前設有台北總管理處及彰化鹿港彰濱工廠，業務範圍涵蓋生產製造、進出口貿易及技術代理，服務對象遍及台灣、越南及日本市場。</span>
+      <span data-en style="display:none">Today, we operate a headquarters in Taipei and a manufacturing plant in Changbin, Lukang, Changhua. Our business encompasses production, import/export trade, and technical agency services, with customers across Taiwan, Vietnam, and Japan.</span>
+    </p>
+    <div class="cert-grid">
+      <div class="cert-badge">ISO 9001</div>
+      <div class="cert-badge">ISO 14001</div>
+      <div class="cert-badge">ZDHC MRSL</div>
+    </div>
+  </div>
+  <div>
+    <div class="section-label">Milestones</div>
+    <h2 class="section-title" style="font-size:22px;"><span data-zh>發展沿革</span><span data-en style="display:none">Our History</span></h2>
+    <div class="about-timeline">
+      <div class="timeline-item"><div class="timeline-year">1972</div><div style="position:relative;"><div class="timeline-dot"></div><div class="timeline-content">
+        <h4><span data-zh>恒美化工成立</span><span data-en style="display:none">Founded</span></h4>
+        <p><span data-zh>由恒美貿易投資成立，開始生產纖維用助劑。</span><span data-en style="display:none">Established by Henme Trading Co., commencing production of fiber finishing agents.</span></p>
+      </div></div></div>
+      <div class="timeline-item"><div class="timeline-year">1975</div><div style="position:relative;"><div class="timeline-dot"></div><div class="timeline-content">
+        <h4><span data-zh>日本技術合作</span><span data-en style="display:none">Japan Technology Partnership</span></h4>
+        <p><span data-zh>與竹本油脂株式會社締結技術合作，成立中日合資公司，設廠桃園龜山工業區。</span><span data-en style="display:none">Established a technical collaboration with Takemoto Oil & Fat Co., Ltd. and formed a Sino-Japanese joint venture, building a plant in Guishan Industrial Zone, Taoyuan.</span></p>
+      </div></div></div>
+      <div class="timeline-item"><div class="timeline-year">1993</div><div style="position:relative;"><div class="timeline-dot"></div><div class="timeline-content">
+        <h4><span data-zh>擴展土木建築業務</span><span data-en style="display:none">Expanded into Construction Chemicals</span></h4>
+        <p><span data-zh>導入竹本油脂第3事業部技術，開始生產混凝土用添加劑。</span><span data-en style="display:none">Introduced Division 3 technology from Takemoto, beginning production of concrete admixtures.</span></p>
+      </div></div></div>
+      <div class="timeline-item"><div class="timeline-year">1999</div><div style="position:relative;"><div class="timeline-dot"></div><div class="timeline-content">
+        <h4><span data-zh>彰濱工廠落成</span><span data-en style="display:none">Changbin Plant Completed</span></h4>
+        <p><span data-zh>彰化鹿港彰濱廠建廠完成，正式投產，龜山廠同年遷廠。</span><span data-en style="display:none">The Changbin plant in Lukang, Changhua commenced full production; the Guishan plant was simultaneously relocated.</span></p>
+      </div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="products reveal" id="products">
+  <div class="products-header">
+    <div>
+      <div class="section-label">Product Lines</div>
+      <h2 class="section-title"><span data-zh>商品介紹</span><span data-en style="display:none">Our Products</span></h2>
+      <div class="section-divider"></div>
+    </div>
+    <p style="font-size:13px;color:var(--ink-light);max-width:300px;text-align:right;line-height:1.9;">
+      <span data-zh>涵蓋紡織、建築、農業、電子、塑膠薄膜、<br>界面活性劑及清潔劑等六大領域</span>
+      <span data-en style="display:none">Six sectors: textile, construction, agriculture,<br>electronics, plastic film & surfactant</span>
+    </p>
+  </div>
+  <div class="product-grid">
+
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="fiber_factory.png" alt="Textile & Synthetic Fiber" loading="lazy">
+        <div class="product-img-overlay"></div>
+        <div class="product-img-num">01 / 06</div>
+      </div>
+      <div class="product-body">
+        <div class="product-name"><span data-zh>纖維用助劑</span><span data-en style="display:none">Textile & Synthetic Fiber</span></div>
+        <div class="product-name-en">Textile &amp; Synthetic Fiber</div>
+        <p class="product-desc">
+          <span data-zh>原絲油、筒子油、不織布用油劑等，適用聚酯、尼龍、碳纖維、玻璃纖維等各類合成與化學纖維。</span>
+          <span data-en style="display:none">Spin finish oils, coning oils, and nonwoven lubricants for polyester, nylon, carbon fiber, glass fiber, and other synthetic fibers.</span>
+        </p>
+        <a href="mailto:kiyoshi@henme.com" class="product-link"><span data-zh>詢問業務</span><span data-en style="display:none">Enquire</span> →</a>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80&fit=crop" alt="Construction" loading="lazy">
+        <div class="product-img-overlay"></div>
+        <div class="product-img-num">02 / 06</div>
+      </div>
+      <div class="product-body">
+        <div class="product-name"><span data-zh>土木建築用助劑</span><span data-en style="display:none">Construction Chemicals</span></div>
+        <div class="product-name-en">Chemicals for Construction</div>
+        <p class="product-desc">
+          <span data-zh>高性能減水劑、流動化混凝土化學摻料，提升工程品質，適用於各類建築與土木工程。</span>
+          <span data-en style="display:none">High-performance water reducers and fluidizing concrete admixtures that enhance structural quality for all types of civil and architectural projects.</span>
+        </p>
+        <a href="mailto:dennis@henme.com.tw" class="product-link"><span data-zh>詢問業務</span><span data-en style="display:none">Enquire</span> →</a>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&q=80&fit=crop" alt="Agriculture" loading="lazy">
+        <div class="product-img-overlay"></div>
+        <div class="product-img-num">03 / 06</div>
+      </div>
+      <div class="product-body">
+        <div class="product-name"><span data-zh>農業用化學品</span><span data-en style="display:none">Agricultural Chemicals</span></div>
+        <div class="product-name-en">Chemicals for Agriculture</div>
+        <p class="product-desc">
+          <span data-zh>代理竹本油脂的農藥用界面活性劑，提升農藥施用效率與展著性能。</span>
+          <span data-en style="display:none">Distributing Takemoto's surfactants for agricultural pesticide formulations, improving spray efficiency and spreading performance.</span>
+        </p>
+        <a href="mailto:yosita@henme.com.tw" class="product-link"><span data-zh>詢問業務</span><span data-en style="display:none">Enquire</span> →</a>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80&fit=crop" alt="Electronic Materials" loading="lazy">
+        <div class="product-img-overlay"></div>
+        <div class="product-img-num">04 / 06</div>
+      </div>
+      <div class="product-body">
+        <div class="product-name"><span data-zh>電子業相關化學品</span><span data-en style="display:none">Electronic Materials</span></div>
+        <div class="product-name-en">Electronic Materials</div>
+        <p class="product-desc">
+          <span data-zh>導電高分子材料、電解電鍍改質劑、抗蝕劑及照相製版印刷藥劑等電子工業專用化學品。</span>
+          <span data-en style="display:none">Conductive polymers, electroplating modifiers, resists, and photolithographic chemicals for the electronics industry.</span>
+        </p>
+        <a href="mailto:yosita@henme.com.tw" class="product-link"><span data-zh>詢問業務</span><span data-en style="display:none">Enquire</span> →</a>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=600&q=80&fit=crop" alt="Plastic & Film" loading="lazy">
+        <div class="product-img-overlay"></div>
+        <div class="product-img-num">05 / 06</div>
+      </div>
+      <div class="product-body">
+        <div class="product-name"><span data-zh>合成樹脂/薄膜用化學品</span><span data-en style="display:none">Plastic &amp; Film Chemicals</span></div>
+        <div class="product-name-en">Plastic &amp; Film</div>
+        <p class="product-desc">
+          <span data-zh>帶電防止劑、防霧劑、紫外線吸收劑、結晶核劑及難燃劑，廣泛應用於塑膠加工產業。</span>
+          <span data-en style="display:none">Antistatic agents, anti-fog agents, UV absorbers, nucleating agents, and flame retardants for the plastics processing industry.</span>
+        </p>
+        <a href="mailto:yosita@henme.com.tw" class="product-link"><span data-zh>詢問業務</span><span data-en style="display:none">Enquire</span> →</a>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img-wrap">
+        <img src="https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?w=600&q=80&fit=crop" alt="Surfactant & Cleaner" loading="lazy">
+        <div class="product-img-overlay"></div>
+        <div class="product-img-num">06 / 06</div>
+      </div>
+      <div class="product-body">
+        <div class="product-name"><span data-zh>界面活性劑及清潔劑</span><span data-en style="display:none">Surfactant &amp; Industrial Cleaner</span></div>
+        <div class="product-name-en">Surfactant &amp; Industrial Cleaner</div>
+        <p class="product-desc">
+          <span data-zh>乳化劑、各種界面活性劑、工業清潔劑及樹脂性地板腊，滿足多元工業需求。</span>
+          <span data-en style="display:none">Emulsifiers, specialty surfactants, industrial cleaners, and resin-based floor wax for diverse industrial applications.</span>
+        </p>
+        <a href="mailto:service@henme.com" class="product-link"><span data-zh>詢問業務</span><span data-en style="display:none">Enquire</span> →</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PARTNER -->
+<section class="partner reveal" id="partner">
+  <div>
+    <div class="section-label" style="color:var(--gold);">Technology Partner</div>
+    <h2 class="section-title"><span data-zh>技術合作夥伴</span><span data-en style="display:none">Our Partner</span></h2>
+    <div class="section-divider"></div>
+    <p class="partner-desc">
+      <span data-zh>自1975年起，恒美與日本竹本油脂株式會社建立深度技術合作關係，歷經半世紀的共同成長，持續引進世界頂尖化工技術。</span>
+      <span data-en style="display:none">Since 1975, Henme has maintained a deep technical partnership with Takemoto Oil & Fat Co., Ltd. of Japan. Half a century of shared growth continues to bring world-class chemical technologies to Taiwan.</span>
+    </p>
+    <a href="https://www.takemoto.co.jp/" target="_blank" class="btn-primary"><span data-zh>竹本油脂官網</span><span data-en style="display:none">Visit Takemoto Website</span></a>
+  </div>
+  <div>
+    <div class="partner-features">
+      <div class="partner-since">1975</div>
+      <div class="partner-feature">
+        <h4><span data-zh>纖維工業用化學品</span><span data-en style="display:none">Fiber Industry Chemicals</span></h4>
+        <p><span data-zh>第2事業部技術導入，涵蓋各類合成與化學纖維用油劑。</span><span data-en style="display:none">Division 2 technology covering finish oils for all synthetic and chemical fibers.</span></p>
+      </div>
+      <div class="partner-feature">
+        <h4><span data-zh>土木建築用化學品</span><span data-en style="display:none">Construction Chemicals</span></h4>
+        <p><span data-zh>第3事業部技術引進，高性能混凝土添加劑。</span><span data-en style="display:none">Division 3 technology: high-performance concrete admixtures.</span></p>
+      </div>
+      <div class="partner-feature">
+        <h4><span data-zh>農業及電子材料</span><span data-en style="display:none">Agriculture & Electronics</span></h4>
+        <p><span data-zh>農藥界面活性劑、電子工業用特殊化學品代理。</span><span data-en style="display:none">Distributor of agricultural surfactants and specialty chemicals for the electronics industry.</span></p>
+      </div>
+      <div class="partner-feature">
+        <h4><span data-zh>品質保證體系</span><span data-en style="display:none">Quality Assurance</span></h4>
+        <p><span data-zh>ISO 9001 / 14001 / ZDHC MRSL 多重認證，品質嚴格把關。</span><span data-en style="display:none">Triple-certified under ISO 9001, ISO 14001, and ZDHC MRSL for rigorous quality control.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact reveal" id="contact">
+  <div>
+    <div class="section-label">Get in Touch</div>
+    <h2 class="section-title"><span data-zh>聯絡資訊</span><span data-en style="display:none">Contact Information</span></h2>
+    <div class="section-divider"></div>
+    <ul class="contact-info-list">
+      <li><span class="label"><span data-zh>總公司</span><span data-en style="display:none">HQ</span></span><span class="value"><span data-zh>104509 台北市中山區復興北路156號8樓</span><span data-en style="display:none">8F, No.156, Fuxing N. Rd., Zhongshan Dist., Taipei 104509, Taiwan</span></span></li>
+      <li><span class="label"><span data-zh>工廠</span><span data-en style="display:none">Plant</span></span><span class="value"><span data-zh>505029 彰化縣鹿港鎮鹿工路5號</span><span data-en style="display:none">No.5, Lugong Rd., Lukang Township, Changhua 505029, Taiwan</span></span></li>
+      <li><span class="label">Tel</span><span class="value">+886 2-2713-4271</span></li>
+      <li><span class="label">Fax</span><span class="value">+886 2-2712-8359</span></li>
+      <li><span class="label">Email</span><span class="value">service@henme.com</span></li>
+      <li><span class="label"><span data-zh>統編</span><span data-en style="display:none">Tax ID</span></span><span class="value">04401597</span></li>
+      <li><span class="label"><span data-zh>營業時間</span><span data-en style="display:none">Hours</span></span><span class="value"><span data-zh>週一至週五 08:30 – 17:30<br>週六、日及國定假日休假</span><span data-en style="display:none">Mon – Fri 08:30 – 17:30<br>Closed on weekends & public holidays</span></span></li>
+    </ul>
+  </div>
+  <div class="contact-form-side">
+    <div class="section-label">Contact Form</div>
+    <h2 class="section-title" style="font-size:22px;margin-bottom:8px;"><span data-zh>線上詢問</span><span data-en style="display:none">Send an Enquiry</span></h2>
+    <div class="section-divider"></div>
+    <div class="form-group">
+      <label class="form-label"><span data-zh>公司 / 姓名</span><span data-en style="display:none">Company / Name</span></label>
+      <input type="text" class="form-input" placeholder="">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email</label>
+      <input type="email" class="form-input" placeholder="your@email.com">
+    </div>
+    <div class="form-group">
+      <label class="form-label"><span data-zh>詢問類別</span><span data-en style="display:none">Product Category</span></label>
+      <select class="form-input" style="cursor:pointer;" id="productSelect">
+        <option data-zh="請選擇產品類別" data-en="Select a product category"></option>
+        <option data-zh="纖維用助劑" data-en="Textile & Synthetic Fiber"></option>
+        <option data-zh="土木建築用助劑" data-en="Construction Chemicals"></option>
+        <option data-zh="農業用化學品" data-en="Agricultural Chemicals"></option>
+        <option data-zh="電子業相關化學品" data-en="Electronic Materials"></option>
+        <option data-zh="合成樹脂/薄膜用化學品" data-en="Plastic & Film Chemicals"></option>
+        <option data-zh="界面活性劑及清潔劑" data-en="Surfactant & Industrial Cleaner"></option>
+        <option data-zh="其他" data-en="Other"></option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label"><span data-zh>詢問內容</span><span data-en style="display:none">Message</span></label>
+      <textarea class="form-textarea" placeholder=""></textarea>
+    </div>
+    <button class="btn-primary" style="width:100%;cursor:pointer;"><span data-zh>送出詢問</span><span data-en style="display:none">Submit Enquiry</span></button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand"><span data-zh>恒美化工股份有限公司</span><span data-en style="display:none">Henme Chemical Co., Ltd.</span></div>
+      <div class="footer-brand-en">Henme Chemical Co., Ltd.</div>
+      <p class="footer-tagline">
+        <span data-zh>半世紀精煉化工技術<br>持續為產業提供高性能化學品解決方案</span>
+        <span data-en style="display:none">Half a century of refined chemistry<br>delivering high-performance solutions to industry</span>
+      </p>
+    </div>
+    <div class="footer-col">
+      <h5><span data-zh>產品領域</span><span data-en style="display:none">Products</span></h5>
+      <ul>
+        <li><a href="#products"><span data-zh>纖維用助劑</span><span data-en style="display:none">Textile & Fiber</span></a></li>
+        <li><a href="#products"><span data-zh>土木建築用助劑</span><span data-en style="display:none">Construction</span></a></li>
+        <li><a href="#products"><span data-zh>農業用化學品</span><span data-en style="display:none">Agriculture</span></a></li>
+        <li><a href="#products"><span data-zh>電子材料</span><span data-en style="display:none">Electronics</span></a></li>
+        <li><a href="#products"><span data-zh>合成樹脂/薄膜</span><span data-en style="display:none">Plastic & Film</span></a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5><span data-zh>公司資訊</span><span data-en style="display:none">Company</span></h5>
+      <ul>
+        <li><a href="#about"><span data-zh>公司介紹</span><span data-en style="display:none">About Us</span></a></li>
+        <li><a href="#partner"><span data-zh>技術合作</span><span data-en style="display:none">Partnership</span></a></li>
+        <li><a href="#"><span data-zh>品質認證</span><span data-en style="display:none">Certifications</span></a></li>
+        <li><a href="#"><span data-zh>公司治理</span><span data-en style="display:none">Governance</span></a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5><span data-zh>相關連結</span><span data-en style="display:none">Links</span></h5>
+      <ul>
+        <li><a href="https://www.takemoto.co.jp/" target="_blank">Takemoto Oil & Fat</a></li>
+        <li><a href="http://www.rinrei.com.tw/" target="_blank"><span data-zh>恒美貿易</span><span data-en style="display:none">Henme Trading</span></a></li>
+        <li><a href="#contact"><span data-zh>聯絡我們</span><span data-en style="display:none">Contact</span></a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 <span data-zh>恒美化工股份有限公司</span><span data-en style="display:none">Henme Chemical Co., Ltd.</span> All Rights Reserved.</span>
+    <span><span data-zh>統一編號</span><span data-en style="display:none">Tax ID</span>：04401597</span>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => io.observe(el));
+
+  // Language switcher
+  let currentLang = 'zh';
+
+  function setLang(lang) {
+    currentLang = lang;
+
+    // Toggle button active state
+    document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      if ((lang === 'zh' && btn.textContent === '繁') || (lang === 'en' && btn.textContent === 'EN')) {
+        btn.classList.add('active');
+      }
+    });
+
+    // Show/hide spans
+    document.querySelectorAll('[data-zh]').forEach(el => {
+      el.style.display = lang === 'zh' ? '' : 'none';
+    });
+    document.querySelectorAll('[data-en]').forEach(el => {
+      el.style.display = lang === 'en' ? '' : 'none';
+    });
+
+    // Update select options
+    document.querySelectorAll('#productSelect option').forEach(opt => {
+      opt.textContent = lang === 'zh' ? opt.dataset.zh : opt.dataset.en;
+    });
+
+    // Update html lang attribute
+    document.documentElement.lang = lang === 'zh' ? 'zh-TW' : 'en';
+
+    // Update page title
+    document.title = lang === 'zh'
+      ? '恒美化工股份有限公司 | Henme Chemical'
+      : 'Henme Chemical Co., Ltd. | Specialty Chemicals';
+  }
+
+  // Init select options text
+  setLang('zh');
+</script>
+</body>
+</html>
